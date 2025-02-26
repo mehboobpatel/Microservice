@@ -1,9 +1,6 @@
 services:
   backend:
     container_name: backend
-    build:
-      context: .
-      dockerfile: ./infra/Dockerfile.server
     image: mehboobpatel/funbackend:latest
     ports:
       - "3000:3000"
@@ -44,9 +41,7 @@ services:
 
   frontend:
     container_name: frontend
-    build:
-      context: .
-      dockerfile: ./infra/Dockerfile.client
+
     image: mehboobpatel/funfrontend:latest
     ports:
       - "8082:80"
@@ -57,9 +52,6 @@ services:
 
   migrations:
     container_name: test-migrations
-    build:
-      context: .
-      dockerfile: ./infra/Dockerfile.migrations
     image: mehboobpatel/funmigrations:latest
     command: sh migrations.sh
     volumes:
