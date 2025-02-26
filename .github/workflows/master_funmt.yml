@@ -47,30 +47,3 @@ jobs:
         tags: mehboobpatel/funmigrations:latest
         file: ./infra/Dockerfile.migrations
         context: .
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    environment:
-      name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
-
-    steps:
-    - name: Trigger Webhook for Continuous Deployment
-      run: |
-        curl -X POST "${{ secrets.AZURE_WEBHOOK_URL }}" 
-    - name: Deploy to Azure Web App
-      id: deploy-to-webapp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: 'funmt'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_b8845a9752ee4d57a1b57bc6b2d8722e }}
-        images: |
-          mehboobpatel/funbackend:latest
-          mehboobpatel/funfrontend:latest
-          mehboobpatel/funmigrations:latest
-        configuration-file: ./docker-compose.yml
-
-    
-    
