@@ -56,6 +56,9 @@ jobs:
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
+    - name: Trigger Webhook for Continuous Deployment
+      run: |
+        curl -X POST "${{ secrets.AZURE_WEBHOOK_URL }}" 
     - name: Deploy to Azure Web App
       id: deploy-to-webapp
       uses: azure/webapps-deploy@v2
@@ -69,7 +72,5 @@ jobs:
           mehboobpatel/funmigrations:latest
         configuration-file: ./docker-compose.yml
 
-    - name: Trigger Webhook for Continuous Deployment
-      run: |
-        curl -X POST "${{ secrets.AZURE_WEBHOOK_URL }}" 
+    
     
