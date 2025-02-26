@@ -68,3 +68,8 @@ jobs:
           mehboobpatel/funfrontend:latest
           mehboobpatel/funmigrations:latest
         configuration-file: ./docker-compose.yml
+
+    - name: Trigger Webhook for Continuous Deployment
+      run: |
+        curl -X POST "${{ secrets.AZURE_WEBHOOK_URL }}" 
+    
