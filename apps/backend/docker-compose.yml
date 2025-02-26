@@ -1,0 +1,10 @@
+services:
+  migrations:
+    container_name: test-migrations
+    image: migrations:latest
+    command: sh migrations.sh
+    volumes:
+      - ./config:/home/app/config
+      - ./keys/:/home/app/decryptkey/
+    env_file:
+      - migrations.env

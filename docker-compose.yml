@@ -1,0 +1,72 @@
+services:
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./infra/Dockerfile.server
+    image: backend-shared
+    ports:
+      - "3000:3000"
+    command: sh -c "node dist/apps/backend/main.js"
+    depends_on:
+      - migrations
+    env_file:
+      - .env
+    networks:
+      - app-network
+
+  currency:
+    container_name: currency
+    image: backend-shared
+    command: sh -c "node dist/apps/currency/main.js"
+    ports:
+      - "3001:3001"
+    env_file:
+      - .env
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  
+  riddle:
+    container_name: riddle
+    image: backend-shared
+    command: sh -c "node dist/apps/riddle/main.js"
+    ports:
+      - "3002:3002"
+    env_file:
+      - .env
+    networks:
+      - app-network
+    depends_on:
+      - backend
+
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./infra/Dockerfile.client
+    image: frontend-app
+    ports:
+      - "8082:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+  migrations:
+    container_name: test-migrations
+    build:
+      context: .
+      dockerfile: ./infra/Dockerfile.migrations
+    image: migrations:latest
+    command: sh migrations.sh
+    volumes:
+      - ./infra/keys/:/home/app/decryptkey/
+    env_file:
+      - migrations.env
+
+networks:
+  app-network:
+    driver: bridge

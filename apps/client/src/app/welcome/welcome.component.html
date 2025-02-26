@@ -1,0 +1,51 @@
+<div class="welcome-container">
+  <h1>Welcome, {{ userName }}</h1>
+  <p>What do you want to explore?</p>
+  <button class="logout-btn" (click)="onLogout()">Logout</button>
+  <div class="explore-blocks">
+    <!-- Button for Currency Conversion -->
+    <div class="block" (click)="openPopup()">Convert Currency</div>
+
+    <!-- Button for Riddle -->
+    <div class="block" (click)="openRiddlePopup()">Play a Riddle</div>
+  </div>
+
+  <!-- Popup for Currency Conversion -->
+  <div class="popup" [ngClass]="{'popup-visible': popupVisible}">
+    <h2>Convert Currency</h2>
+    <label>Amount:</label>
+    <input type="number" [(ngModel)]="amount" />
+
+    <label>From Currency:</label>
+    <input type="text" [(ngModel)]="fromCurrency" placeholder="e.g., USD" />
+
+    <label>To Currency:</label>
+    <input type="text" [(ngModel)]="toCurrency" placeholder="e.g., INR" />
+
+    <button (click)="convertCurrency()">Convert</button>
+    <button (click)="closePopup()">Close</button>
+
+    <div *ngIf="convertedValue">
+      <p>Converted Amount: {{ convertedValue }}</p>
+    </div>
+  </div>
+
+  <!-- Popup for Riddle -->
+  <div class="popup" [ngClass]="{'popup-visible': riddleVisible}">
+    <h2>Riddle</h2>
+
+    <!-- Play button to fetch a new riddle -->
+    <button (click)="fetchNewRiddle()">{{playTitle}}</button>
+
+    <!-- Display the question after the Play button is clicked -->
+    <p *ngIf="riddle">{{ riddle?.question }}</p>
+
+    <!-- Show the answer button and the answer itself -->
+    <button *ngIf="!showAnswer && riddle" (click)="revealAnswer()">Show Answer</button>
+    <p *ngIf="showAnswer && riddle"><strong>Answer:</strong> {{ riddle?.answer }}</p>
+
+    <button (click)="closePopup()">Close</button>
+  </div>
+</div>
+
+

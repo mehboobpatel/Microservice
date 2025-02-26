@@ -1,0 +1,11 @@
+{
+  "authBaseUrl": "https://login.microsoftonline.com",
+  "msalClientId": "5d0098c7-ae9b-4b6b-abe7-ffef59b04147",
+  "msalTenantId": "95706a18-beb5-4797-9ff7-f4043588be9d",
+  "isRedisEnabled": "false",
+  "redisHost": "localhost",
+  "redisPassword": "redisPassword",
+  "redisPort": 6379,
+  "customerCode": "dev",
+  "customerSecret": "9a8a47c1c9fb64a018e19c9d4f3e195b"
+}

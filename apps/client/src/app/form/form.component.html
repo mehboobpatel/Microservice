@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="tabs">
+    <button [class.active]="isLogin" (click)="switchToLogin()">Login</button>
+    <button [class.active]="!isLogin" (click)="switchToSignup()">Signup</button>
+  </div>
+
+  <!-- Login Form -->
+  <form *ngIf="isLogin" [formGroup]="loginForm" (ngSubmit)="onLogin()" class="form">
+    <div>
+      <label for="login-email">Email:</label>
+      <input id="login-email" formControlName="email" type="email" />
+      <span class="error" *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched">
+        Please enter a valid email.
+      </span>
+    </div>
+    <div>
+      <label for="login-password">Password:</label>
+      <input id="login-password" formControlName="password" type="password" />
+      <span class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        Password is required.
+      </span>
+    </div>
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+
+  <!-- Signup Form -->
+  <form *ngIf="!isLogin" [formGroup]="signupForm" (ngSubmit)="onSignup()" class="form">
+
+    <!-- Full Name -->
+    <div>
+      <label for="signup-fullname">Full Name:</label>
+      <input id="signup-fullname" formControlName="name" type="text" />
+      <span class="error" *ngIf="signupForm.get('name')?.invalid && signupForm.get('name')?.touched">
+        Full Name is required.
+      </span>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="signup-email">Email:</label>
+      <input id="signup-email" formControlName="email" type="email" />
+      <span class="error" *ngIf="signupForm.get('email')?.invalid && signupForm.get('email')?.touched">
+        Please enter a valid email.
+      </span>
+    </div>
+
+    <!-- Password -->
+    <div>
+      <label for="signup-password">Password:</label>
+      <input id="signup-password" formControlName="password" type="password" />
+      <span class="error" *ngIf="signupForm.get('password')?.invalid && signupForm.get('password')?.touched">
+        Password must be at least 6 characters.
+      </span>
+    </div>
+
+    <!-- Signup Button -->
+    <button type="submit" [disabled]="signupForm.invalid">Signup</button>
+  </form>
+</div>
+
+

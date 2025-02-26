@@ -1,0 +1,23 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2017",
+    "lib": ["es2017"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "declaration": true,
+    "module": "commonjs",
+    "noUnusedLocals": true,
+    "noErrorTruncation": true,
+    "pretty": true,
+    "strict": true
+  },
+  "exclude": ["node_modules", "tmp", "dist"]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "config-migrations",
+  "version": "1.0.0",
+  "description": "Used for migration of config values into database.",
+  "main": "dist/index.js",
+  "bin": {
+    "config-migrate": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "lint": "eslint",
+    "encrypt": "ts-node src/encrypt-config-data.ts"
+  },
+  "author": "srini",
+  "license": "ISC",
+  "dependencies": {
+    "@nrwl/eslint-plugin-nx": "15.0.0",
+    "dotenv": "16.0.3",
+    "pg": "8.8.0",
+    "pg-promise": "10.12.1",
+    "ts-node": "10.0.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "8.2.0",
+    "@types/node": "18.11.0",
+    "@types/pg": "8.6.5",
+    "@typescript-eslint/eslint-plugin": "5.40.1",
+    "@typescript-eslint/parser": "5.40.1",
+    "eslint": "8.15.0",
+    "eslint-config-prettier": "8.1.0",
+    "eslint-plugin-etc": "2.0.2",
+    "eslint-plugin-sonarjs": "0.15.0",
+    "tslib": "2.4.0",
+    "typescript": "4.8.4"
+  }
+}
