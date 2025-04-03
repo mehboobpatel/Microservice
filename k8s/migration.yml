@@ -1,0 +1,26 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrations
+spec:
+  template:
+    spec:
+      containers:
+      - name: migrations
+        image: mehboobpatel/funmigrations:latest
+        command: ["sh", "-c", "sh migrations.sh"]
+        envFrom:
+        - configMapRef:
+            name: migrations-env-config
+        volumeMounts:
+        - name: decrypt-key-volume
+          mountPath: /home/app/decryptkey/
+      volumes:
+      - name: decrypt-key-volume
+        configMap:
+          name: migrations-config
+          items:
+          - key: your-key.pem
+            path: your-key.pem
+      restartPolicy: Never
+  backoffLimit: 4

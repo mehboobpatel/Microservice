@@ -1,0 +1,46 @@
+apiVersion: pipecd.dev/v1beta1
+kind: KubernetesApp
+spec:
+  name: funmotiv-app
+  namespace: default
+  labels:
+    app: funmotiv
+  pipeline:
+    stages:
+      - name: K8S_CANARY_ROLLOUT
+        with:
+          replicas: 1
+      - name: K8S_PRIMARY_ROLLOUT
+        with:
+          replicas: 2
+      - name: K8S_TRAFFIC_ROUTING
+        with:
+          canary: 20
+          primary: 80
+  input:
+    service:
+      name: backend
+      labels:
+        app: backend
+      ports:
+        - name: http
+          port: 3000
+          targetPort: 3000
+    deployment:
+      name: backend
+      labels:
+        app: backend
+      replicas: 2
+      template:
+        metadata:
+          labels:
+            app: backend
+        spec:
+          containers:
+            - name: backend
+              image: mehboobpatel/funbackend:latest
+              ports:
+                - containerPort: 3000
+              envFrom:
+                - secretRef:
+                    name: backend-secrets

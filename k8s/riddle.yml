@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: riddle
+  labels:
+    app: riddle
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: riddle
+  template:
+    metadata:
+      labels:
+        app: riddle
+    spec:
+      containers:
+      - name: riddle
+        image: mehboobpatel/funbackend:latest
+        ports:
+        - containerPort: 3002
+        envFrom:
+        - secretRef:
+            name: riddle-secrets
+        command: ["sh", "-c", "node dist/apps/riddle/main.js"]
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: riddle
+  labels:
+    app: riddle
+spec:
+  ports:
+  - port: 3002
+    targetPort: 3002
+  selector:
+    app: riddle

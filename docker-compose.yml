@@ -55,7 +55,7 @@ services:
     image: mehboobpatel/funmigrations:latest
     command: sh migrations.sh
     volumes:
-      - ./infra/keys/:/home/app/decryptkey/
+      - "${WEBAPP_STORAGE_HOME}/infra/keys/:/home/app/decryptkey/"
     env_file:
       - migrations.env
 

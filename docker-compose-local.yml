@@ -41,6 +41,7 @@ services:
       - app-network
     depends_on:
       - backend
+      
 
   frontend:
     container_name: frontend
